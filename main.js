@@ -10,12 +10,11 @@ const getTimeTableAPI = require("./get-stundenplan").getStundenplanAPI;
 
 const CONFIG_PATH = path.join(os.homedir(), ".schuelerportal-cli", "config.json");
 
-function getCharsThatNeedToBeSpaces(string) {
+function getCharsThatNeedToBeSpaces(string, maxLength = 50) {
     if (typeof string !== "string") {
         string = String(string);
     }
     const length = string.length;
-    const maxLength = 50; 
     const charsThatNeedToBeSpaces = maxLength - length;
     return charsThatNeedToBeSpaces > 0 ? " ".repeat(charsThatNeedToBeSpaces) : "";
 }
@@ -78,7 +77,7 @@ function printTimeTableList(timetable) {
 
     timetable.data.forEach((entry, entryIndex) => {
         if (entryIndex === 0) {
-            console.log(calculateTopBorderLength("| Missing Teacher  | ", 51));
+            console.log(calculateTopBorderLength("| Missing Teacher  | ", 45));
         }
 
         const date = new Date(entry.date);
@@ -97,18 +96,18 @@ function printTimeTableList(timetable) {
         const nodd = entry.room === "NO33" || entry.room === "Entfall" || entry.room === "Ersatz";
         const entfallText = nodd ? "No Lesson" : entry.room;
 
-        console.log(`| Entry #${entryIndex + 1}         | ` + getCharsThatNeedToBeSpaces("") + "|");
-        console.log(`| Day              | ${dayString}` + getCharsThatNeedToBeSpaces(dayString) + "|");
-        console.log(`| Hour             | ${entry.hour || "Unknown"}` + getCharsThatNeedToBeSpaces(entry.hour || "Unknown") + "|");
-        console.log(`| Room             | ${entfallText}` + getCharsThatNeedToBeSpaces(entfallText) + "|");
-        console.log(`| Missing Teacher  | ${entry.abs_teacher || "-"}` + getCharsThatNeedToBeSpaces(entry.abs_teacher || "-") + "|");
-        console.log(`| Subject          | ${entry.uf || "-"}` + getCharsThatNeedToBeSpaces(entry.uf || "-") + "|");
+        console.log(`| Entry #${entryIndex + 1}         | ` + getCharsThatNeedToBeSpaces("", 44) + "|");
+        console.log(`| Day              | ${dayString}` + getCharsThatNeedToBeSpaces(dayString, 44) + "|");
+        console.log(`| Hour             | ${entry.hour || "Unknown"}` + getCharsThatNeedToBeSpaces(entry.hour || "Unknown", 44) + "|");
+        console.log(`| Room             | ${entfallText}` + getCharsThatNeedToBeSpaces(entfallText, 44) + "|");
+        console.log(`| Missing Teacher  | ${entry.abs_teacher || "-"}` + getCharsThatNeedToBeSpaces(entry.abs_teacher || "-", 44) + "|");
+        console.log(`| Subject          | ${entry.uf || "-"}` + getCharsThatNeedToBeSpaces(entry.uf || "-", 44) + "|");
 
         if (!nodd) {
             console.log(`| Substitute       | ${entry.vertr_teacher || "No teacher"}` + getCharsThatNeedToBeSpaces(entry.vertr_teacher || "No teacher") + "|");
         }
 
-        console.log(calculateTopBorderLength("| Missing Teacher  | ", 51));
+        console.log(calculateTopBorderLength("| Missing Teacher  | ", 45));
     });
 }
 

@@ -25,7 +25,5 @@ async function getTimeTableAPI(username, password) {
 }
 
 module.exports = {
-	getTimeTableAPI(username, password) {
-        return getTimeTableAPI(username, password);
-    }
+	getStundenplanAPI: getTimeTableAPI
 };

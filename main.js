@@ -50,9 +50,13 @@ function printHomeworkList(homework) {
 }
 
 function printTimeTableList(timetable) {
-    if (!Array.isArray(timetable) || timetable.length === 0) {
-        console.log("No timetable entries found.");
-        return;
+    if (!Array.isArray(timetable)) {
+        try {
+            timetable = JSON.parse(timetable);
+        } catch (error) {
+            console.error("Error parsing timetable data:", error.message);
+            return;
+        }
     }
 
     timetable.forEach((tt, index) => {

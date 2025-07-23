@@ -1,9 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 const { Command } = require("commander");
-const { fetchWithCookies, ensureLoggedIn, getXsrfToken } = require("./login");
+const getHausaufgabenAPI = require("./get-hausaufgaben").getHausaufgabenAPI;
 
-// Load CLI options
 const program = new Command();
 program
 	.description("CLI for Schülerportal")

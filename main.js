@@ -1,61 +1,61 @@
 const fs = require("fs");
 const path = require("path");
 const { Command } = require("commander");
-const { fetchWithCookies, ensureLoggedIn, getXsrfToken } = require("./login");
+const getHausaufgabenAPI = require("./get-hausaufgaben").getHausaufgabenAPI;
 
 const program = new Command();
 program
-  .description("CLI for Schülerportal")
-  .option("--homework", "Fetch homework")
-  .option("--schedule", "Fetch class schedule");
+	.description("CLI for Schülerportal")
+	.option("--homework", "Fetch homework")
+	.option("--schedule", "Fetch class schedule");
 
 program.parse(process.argv);
 const options = program.opts();
 
 // Load credentials from config
 function loadCredentials(configPath = "schuelerportal.conf") {
-  const fullPath = path.resolve(__dirname, configPath);
-  if (!fs.existsSync(fullPath)) {
-    throw new Error(
-      `Missing config file: ${fullPath}. Please create it with email=... and password=...`
-    );
-  }
+	const fullPath = path.resolve(__dirname, configPath);
+	if (!fs.existsSync(fullPath)) {
+		throw new Error(
+			`Missing config file: ${fullPath}. Please create it with email=... and password=...`
+		);
+	}
 
-  const content = fs.readFileSync(fullPath, "utf-8");
-  const credentials = {};
-  for (const line of content.split("\n")) {
-    const trimmed = line.trim();
-    if (!trimmed || !trimmed.includes("=")) continue;
-    const [key, value] = trimmed.split("=");
-    credentials[key.trim()] = value.trim();
-  }
+	const content = fs.readFileSync(fullPath, "utf-8");
+	const credentials = {};
+	for (const line of content.split("\n")) {
+		const trimmed = line.trim();
+		if (!trimmed || !trimmed.includes("=")) continue;
+		const [key, value] = trimmed.split("=");
+		credentials[key.trim()] = value.trim();
+	}
 
-  if (!credentials.email || !credentials.password) {
-    throw new Error("Invalid config file: email or password is missing.");
-  }
+	if (!credentials.email || !credentials.password) {
+		throw new Error("Invalid config file: email or password is missing.");
+	}
 
-  return credentials;
+	return credentials;
 }
 
 // Patch login credentials into login.js
 function injectCredentials(loginModule, credentials) {
-  loginModule.__injectCredentials = () => ({
-    email: credentials.email,
-    password: credentials.password,
-  });
+	loginModule.__injectCredentials = () => ({
+		email: credentials.email,
+		password: credentials.password,
+	});
 }
 
 async function fetchData(endpoint, label) {
-  const res = await fetchWithCookies(
-    `https://api.schueler.schule-infoportal.de/hugyvat/${endpoint}`,
-    {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "x-xsrf-token": getXsrfToken(),
-      },
-    }
-  );
+	const res = await fetchWithCookies(
+		`https://api.schueler.schule-infoportal.de/hugyvat/${endpoint}`,
+		{
+			method: "GET",
+			headers: {
+				Accept: "application/json",
+				"x-xsrf-token": getXsrfToken(),
+			},
+		}
+	);
 
 	if (!res.ok) {
 		throw new Error(`Failed to fetch ${label}: ${res.status}`);

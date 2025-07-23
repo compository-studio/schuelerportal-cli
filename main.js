@@ -70,44 +70,48 @@ function printTimeTableList(timetable) {
             const beginLength = begin.length;
             const fixedLength = fixed;
             const borderSymbol = "–"
-
             return borderSymbol.repeat(beginLength + fixedLength);
+        };
+
+        if (!Array.isArray(tt.data)) {
+            console.log("No timetable entries found.");
+            return;
         }
 
-        if (index === 0) {
+        tt.data.forEach((entry, entryIndex) => {
+            if (entryIndex === 0) {
+                console.log(calculateTopBorderLength("| Missing Teacher  | ", 51));
+            }
+
+            const date = new Date(entry.date);
+            const isToday = date.toDateString() === new Date().toDateString();
+            const isTomorrow = date.toDateString() === new Date(Date.now() + 24 * 60 * 60 * 1000).toDateString();
+
+            let dayString;
+            if (isToday) {
+                dayString = "Today";
+            } else if (isTomorrow) {
+                dayString = "Tomorrow";
+            } else {
+                dayString = "Sometime in the future";
+            }
+
+            const nodd = entry.room === "NO33" || entry.room === "Entfall" || entry.room === "Ersatz";
+            const entfallText = nodd ? "No Lesson" : entry.room;
+
+            console.log(`| Entry #${entryIndex + 1}` + getCharsThatNeedToBeSpaces("") + "|");
+            console.log(`| Day              | ${dayString}` + getCharsThatNeedToBeSpaces(dayString) + "|");
+            console.log(`| Hour             | ${entry.hour || "Unknown"}` + getCharsThatNeedToBeSpaces(entry.hour || "Unknown") + "|");
+            console.log(`| Room             | ${entfallText}` + getCharsThatNeedToBeSpaces(entfallText) + "|");
+            console.log(`| Missing Teacher  | ${entry.abs_teacher || "-"}` + getCharsThatNeedToBeSpaces(entry.abs_teacher || "-") + "|");
+            console.log(`| Subject          | ${entry.uf || "-"}` + getCharsThatNeedToBeSpaces(entry.uf || "-") + "|");
+
+            if (!nodd) {
+                console.log(`| Substitute       | ${entry.vertr_teacher || "No teacher"}` + getCharsThatNeedToBeSpaces(entry.vertr_teacher || "No teacher") + "|");
+            }
+
             console.log(calculateTopBorderLength("| Missing Teacher  | ", 51));
-        }
-
-        const date = new Date(tt.data.date);
-        const isToday = date.toDateString() === new Date().toDateString();
-        const isTomorrow = date.toDateString() === new Date(Date.now() + 24 * 60 * 60 * 1000).toDateString();
-
-        if (isToday) {
-            dayString = "Today"
-        } else if (isTomorrow) {
-            dayString = "Tomorrow"
-        } else {
-            dayString = "Sometime in the future"
-        }
-        
-        const nodd = tt.data.room === "NO33" || tt.data.room === "Entfall" || tt.data.room === "Ersatz";
-        
-        const entfallText = nodd ? "No Lesson" : tt.data.room;
-
-        console.log(entfallText, "entfallText", nodd, "nodd", tt.data.room, "tt.data.room", tt.data, "tt.data" );
-        
-        console.log(`| Entry #${index + 1}` + getCharsThatNeedToBeSpaces("") + "|");
-        console.log(`| Day              | ${dayString}` + getCharsThatNeedToBeSpaces(dayString) + "|");
-        console.log(`| Hour             | ${tt.data.hour || "Unknown"}` + getCharsThatNeedToBeSpaces(tt.data.hour || "Unknown") + "|");
-        console.log(`| Room             | ${entfallText}` + getCharsThatNeedToBeSpaces(entfallText) + "|");
-        console.log(`| Missing Teacher  | ${tt.data.abs_teacher || "-"}` + getCharsThatNeedToBeSpaces(tt.data.abs_teacher || "-") + "|");
-        console.log(`| Subject          | ${tt.data.uf || "-"}` + getCharsThatNeedToBeSpaces(tt.data.uf || "-") + "|");
-
-        if (!nodd) {
-            console.log(`| Substitute       | ${tt.data.vertr_teacher || "No teacher"}` + getCharsThatNeedToBeSpaces(tt.data.vertr_teacher || "No teacher") + "|");
-        }
-
-        console.log(calculateTopBorderLength("| Missing Teacher  | ", 51));
+        });
     });
 }
 

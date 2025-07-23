@@ -1,7 +1,6 @@
 const tough = require("tough-cookie");
-const fetchCookie = require("fetch-cookie").default;
-const fetch = (...args) =>
-	import("node-fetch").then((mod) => mod.default(...args));
+const fetchCookie = require("fetch-cookie");
+const fetch = require("node-fetch");
 
 const CookieJar = tough.CookieJar;
 const jar = new CookieJar();
@@ -9,8 +8,7 @@ let xsrfToken = null;
 let isLoggedIn = false;
 
 async function fetchWithCookies(...args) {
-	const realFetch = await fetch;
-	return fetchCookie(realFetch, jar)(...args);
+	return fetchCookie(fetch, jar)(...args);
 }
 
 async function ensureLoggedIn(username, password) {

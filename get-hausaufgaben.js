@@ -4,8 +4,8 @@ const {
 	getXsrfToken,
 } = require("./schule-api-session-module");
 
-async function getHausaufgabenAPI() {
-	await ensureLoggedIn();
+async function getHausaufgabenAPI(username, password) {
+	await ensureLoggedIn(username, password);
 	const xsrfToken = getXsrfToken();
 
 	const apiResponse = await fetchWithCookies(

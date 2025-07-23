@@ -1,7 +1,8 @@
+#!/usr/bin/env node
+
 const fs = require("fs");
 const path = require("path");
 const { program } = require("commander");
-const path = require("path");
 const os = require("os");
 const readline = require("readline");
 const getHausaufgabenAPI = require("./get-hausaufgaben").getHausaufgabenAPI;

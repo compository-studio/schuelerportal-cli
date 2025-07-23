@@ -14,7 +14,22 @@
   "author": "Niclas Ponikwar & Michael Sellmeier",
   "type": "commonjs",
   "main": "main.js",
+  "bin": {
+    "portal": "./main.js",
+    "schuelerportal-cli": "./main.js"
+  },
+  "preferGlobal": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  }
+  },
+  "dependencies": {
+    "commander": "^11.0.0"
+  },
+  "keywords": [
+    "cli",
+    "schuelerportal",
+    "homework",
+    "timetable",
+    "education"
+  ]
 }

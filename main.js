@@ -48,7 +48,7 @@ function printHomeworkList(homework) {
         console.log(`  | Completed   | ${hw.completed ? "Yes" : "No"}` + getCharsThatNeedToBeSpaces(hw.completed ? "Yes" : "No") + "|");
         console.log(`  | Files       | ${hw.files?.length > 0 ? hw.files.length + " attached" : "None"}` + getCharsThatNeedToBeSpaces(hw.files?.length > 0 ? hw.files.length + " attached" : "None") + "|");
         console.log(`  | Substitute  | ${hw.substitute ? "Yes" : "No"}` + getCharsThatNeedToBeSpaces(hw.substitute ? "Yes" : "No") + "|");
-        console.log("  " + calculateTopBorderLength("| Subject     | ", 51) + "\n");
+        console.log("  " + calculateTopBorderLength("| Subject     | ", 51));
     });
 }
 

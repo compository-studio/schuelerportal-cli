@@ -93,6 +93,8 @@ function printTimeTableList(timetable) {
         const nodd = tt.data.room === "NO33" || tt.data.room === "Entfall" || tt.data.room === "Ersatz";
         
         const entfallText = nodd ? "No Lesson" : tt.data.room;
+
+        console.log(entfallText, "entfallText", nodd, "nodd", tt.data.room, "tt.data.room");
         
         console.log(`| Entry #${index + 1}` + getCharsThatNeedToBeSpaces("") + "|");
         console.log(`| Day              | ${dayString}` + getCharsThatNeedToBeSpaces(dayString) + "|");

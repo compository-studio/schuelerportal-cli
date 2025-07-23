@@ -35,18 +35,18 @@ function printHomeworkList(homework) {
         }
 
         if (index === 0) {
-            console.log(calculateTopBorderLength("| Subject     | ", 51));
+            console.log("\n" + calculateTopBorderLength("| Subject     | ", 51));
         }
 
-        console.log(`| Homework #${index + 1} | ` + getCharsThatNeedToBeSpaces("") + "|");
-        console.log(`| Subject     | ${hw.subject?.long || "Unknown"}` + getCharsThatNeedToBeSpaces(hw.subject?.long || "Unknown") + "|");
-        console.log(`| Teacher     | ${hw.teacher || "Unknown"}` + getCharsThatNeedToBeSpaces(hw.teacher || "Unknown") + "|");
-        console.log(`| Assigned    | ${hw.date || "No date"}` + getCharsThatNeedToBeSpaces(hw.date || "No date") + "|");
-        console.log(`| Due At      | ${hw.due_at || "No due date"}` + getCharsThatNeedToBeSpaces(hw.due_at || "No due date") + "|");
-        console.log(`| Homework    | ${hw.homework || "No description"}` + getCharsThatNeedToBeSpaces(hw.homework || "No description") + "|");
-        console.log(`| Completed   | ${hw.completed ? "Yes" : "No"}` + getCharsThatNeedToBeSpaces(hw.completed ? "Yes" : "No") + "|");
-        console.log(`| Files       | ${hw.files?.length > 0 ? hw.files.length + " attached" : "None"}` + getCharsThatNeedToBeSpaces(hw.files?.length > 0 ? hw.files.length + " attached" : "None") + "|");
-        console.log(`| Substitute  | ${hw.substitute ? "Yes" : "No"}` + getCharsThatNeedToBeSpaces(hw.substitute ? "Yes" : "No") + "|");
+        console.log(`  | Homework #${index + 1} | ` + getCharsThatNeedToBeSpaces("") + "|");
+        console.log(`  | Subject     | ${hw.subject?.long || "Unknown"}` + getCharsThatNeedToBeSpaces(hw.subject?.long || "Unknown") + "|");
+        console.log(`  | Teacher     | ${hw.teacher || "Unknown"}` + getCharsThatNeedToBeSpaces(hw.teacher || "Unknown") + "|");
+        console.log(`  | Assigned    | ${hw.date || "No date"}` + getCharsThatNeedToBeSpaces(hw.date || "No date") + "|");
+        console.log(`  | Due At      | ${hw.due_at || "No due date"}` + getCharsThatNeedToBeSpaces(hw.due_at || "No due date") + "|");
+        console.log(`  | Homework    | ${hw.homework || "No description"}` + getCharsThatNeedToBeSpaces(hw.homework || "No description") + "|");
+        console.log(`  | Completed   | ${hw.completed ? "Yes" : "No"}` + getCharsThatNeedToBeSpaces(hw.completed ? "Yes" : "No") + "|");
+        console.log(`  | Files       | ${hw.files?.length > 0 ? hw.files.length + " attached" : "None"}` + getCharsThatNeedToBeSpaces(hw.files?.length > 0 ? hw.files.length + " attached" : "None") + "|");
+        console.log(`  | Substitute  | ${hw.substitute ? "Yes" : "No"}` + getCharsThatNeedToBeSpaces(hw.substitute ? "Yes" : "No") + "|");
         console.log(calculateTopBorderLength("| Subject     | ", 51));
     });
 }
@@ -77,7 +77,7 @@ function printTimeTableList(timetable) {
 
     timetable.data.forEach((entry, entryIndex) => {
         if (entryIndex === 0) {
-            console.log(calculateTopBorderLength("| Missing Teacher  | ", 45));
+            console.log("\n" + calculateTopBorderLength("| Missing Teacher  | ", 46));
         }
 
         const date = new Date(entry.date);
@@ -96,18 +96,18 @@ function printTimeTableList(timetable) {
         const nodd = entry.room === "NO33" || entry.room === "Entfall" || entry.room === "Ersatz";
         const entfallText = nodd ? "No Lesson" : entry.room;
 
-        console.log(`| Entry #${entryIndex + 1}         | ` + getCharsThatNeedToBeSpaces("", 44) + "|");
-        console.log(`| Day              | ${dayString}` + getCharsThatNeedToBeSpaces(dayString, 44) + "|");
-        console.log(`| Hour             | ${entry.hour || "Unknown"}` + getCharsThatNeedToBeSpaces(entry.hour || "Unknown", 44) + "|");
-        console.log(`| Room             | ${entfallText}` + getCharsThatNeedToBeSpaces(entfallText, 44) + "|");
-        console.log(`| Missing Teacher  | ${entry.abs_teacher || "-"}` + getCharsThatNeedToBeSpaces(entry.abs_teacher || "-", 44) + "|");
-        console.log(`| Subject          | ${entry.uf || "-"}` + getCharsThatNeedToBeSpaces(entry.uf || "-", 44) + "|");
+        console.log(`  | Entry #${entryIndex + 1}         | ` + getCharsThatNeedToBeSpaces("", 45) + "|");
+        console.log(`  | Day              | ${dayString}` + getCharsThatNeedToBeSpaces(dayString, 45) + "|");
+        console.log(`  | Hour             | ${entry.hour || "Unknown"}` + getCharsThatNeedToBeSpaces(entry.hour || "Unknown", 45) + "|");
+        console.log(`  | Room             | ${entfallText}` + getCharsThatNeedToBeSpaces(entfallText, 45) + "|");
+        console.log(`  | Missing Teacher  | ${entry.abs_teacher || "-"}` + getCharsThatNeedToBeSpaces(entry.abs_teacher || "-", 45) + "|");
+        console.log(`  | Subject          | ${entry.uf || "-"}` + getCharsThatNeedToBeSpaces(entry.uf || "-", 45) + "|");
 
         if (!nodd) {
             console.log(`| Substitute       | ${entry.vertr_teacher || "No teacher"}` + getCharsThatNeedToBeSpaces(entry.vertr_teacher || "No teacher") + "|");
         }
 
-        console.log(calculateTopBorderLength("| Missing Teacher  | ", 45));
+        console.log(calculateTopBorderLength("| Missing Teacher  | ", 46));
     });
 }
 

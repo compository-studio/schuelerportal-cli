@@ -94,7 +94,7 @@ function printTimeTableList(timetable) {
         
         const entfallText = nodd ? "No Lesson" : tt.data.room;
 
-        console.log(entfallText, "entfallText", nodd, "nodd", tt.data.room, "tt.data.room");
+        console.log(entfallText, "entfallText", nodd, "nodd", tt.data.room, "tt.data.room", tt.data, "tt.data" );
         
         console.log(`| Entry #${index + 1}` + getCharsThatNeedToBeSpaces("") + "|");
         console.log(`| Day              | ${dayString}` + getCharsThatNeedToBeSpaces(dayString) + "|");

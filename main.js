@@ -51,12 +51,18 @@ function printHomeworkList(homework) {
 
 function printTimeTableList(timetable) {
     if (!Array.isArray(timetable)) {
-        try {
-            timetable = JSON.parse(timetable);
-        } catch (error) {
-            console.error("Error parsing timetable data:", error.message);
-            return;
+        if (typeof timetable === "string") {
+            try {
+                timetable = JSON.parse(timetable);
+            } catch (error) {
+                console.error("Error parsing timetable data:", error.message);
+                return;
+            }
+        } else {
+            timetable = [timetable];
         }
+
+        console.log(timetable);
     }
 
     timetable.forEach((tt, index) => {

@@ -1,2 +1,3 @@
 # schuelerportal-cli
+
 schuelerportal-cli

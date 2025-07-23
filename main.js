@@ -195,5 +195,4 @@ program.command("config")
         console.log("Configuration saved successfully.");
     })
 
-//jetz nur noch das json stringyfy dingsda mit dem function call printHomeworkList(homework); ersetzen
 program.parse();

@@ -36,7 +36,7 @@ function printHomeworkList(homework) {
             console.log(calculateTopBorderLength("| Subject     | ", 51));
         }
 
-        console.log(`| Homework #${index + 1}  | ` + getCharsThatNeedToBeSpaces("") + "|");
+        console.log(`| Homework #${index + 1} | ` + getCharsThatNeedToBeSpaces("") + "|");
         console.log(`| Subject     | ${hw.subject?.long || "Unknown"}` + getCharsThatNeedToBeSpaces(hw.subject?.long || "Unknown") + "|");
         console.log(`| Teacher     | ${hw.teacher || "Unknown"}` + getCharsThatNeedToBeSpaces(hw.teacher || "Unknown") + "|");
         console.log(`| Assigned    | ${hw.date || "No date"}` + getCharsThatNeedToBeSpaces(hw.date || "No date") + "|");
@@ -50,15 +50,11 @@ function printHomeworkList(homework) {
 }
 
 function printTimeTableList(timetable) {
-    if (!Array.isArray(timetable)) {
-        try {
-            timetable = JSON.parse(timetable);
-        } catch (error) {
-            console.error("Error parsing timetable data:", error.message);
-            return;
-        }
+    if (!Array.isArray(timetable) || timetable.length === 0) {
+        console.log("No timetable entries found.");
+        return;
     }
-    
+
     timetable.forEach((tt, index) => {
         const calculateTopBorderLength = (begin, fixed) => {
             const beginLength = begin.length;
@@ -149,7 +145,7 @@ program.command("timetable")
 
         try {
             const timetable = await getTimeTableAPI(config.username, config.password);
-            printTimeTableList(); 
+            printTimeTableList(timetable); 
         } catch (error) {
             console.error("Error fetching timetable:", error.message);
         }

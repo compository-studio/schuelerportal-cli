@@ -10,6 +10,96 @@ const getTimeTableAPI = require("./get-stundenplan").getStundenplanAPI;
 
 const CONFIG_PATH = path.join(os.homedir(), ".schuelerportal-cli", "config.json");
 
+function getCharsThatNeedToBeSpaces(string) {
+    const length = string.length;
+    const maxLength = 50; 
+    const charsThatNeedToBeSpaces = maxLength - length;
+    return charsThatNeedToBeSpaces > 0 ? " ".repeat(charsThatNeedToBeSpaces) : "";
+}
+
+function printHomeworkList(homework) {
+    if (!Array.isArray(homework) || homework.length === 0) {
+    console.log("No homework found.");
+    return;
+    }
+
+    homework.forEach((hw, index) => {
+        const calculateTopBorderLength = (begin, fixed) => {
+            const beginLength = begin.length;
+            const fixedLength = fixed;
+            const borderSymbol = "–"
+
+            return borderSymbol.repeat(beginLength + fixedLength);
+        }
+
+        if (index === 0) {
+            console.log(calculateTopBorderLength("| Subject     | ", 51));
+        }
+
+        console.log(`| Homework #${index + 1}`);
+        console.log(`| Subject     | ${hw.subject?.long || "Unknown"}` + getCharsThatNeedToBeSpaces(hw.subject?.long || "Unknown") + "|");
+        console.log(`| Teacher     | ${hw.teacher || "Unknown"}` + getCharsThatNeedToBeSpaces(hw.teacher || "Unknown") + "|");
+        console.log(`| Assigned    | ${hw.date || "No date"}` + getCharsThatNeedToBeSpaces(hw.date || "No date") + "|");
+        console.log(`| Due At      | ${hw.due_at || "No due date"}` + getCharsThatNeedToBeSpaces(hw.due_at || "No due date") + "|");
+        console.log(`| Homework    | ${hw.homework || "No description"}` + getCharsThatNeedToBeSpaces(hw.homework || "No description") + "|");
+        console.log(`| Completed   | ${hw.completed ? "Yes" : "No"}` + getCharsThatNeedToBeSpaces(hw.completed ? "Yes" : "No") + "|");
+        console.log(`| Files       | ${hw.files?.length > 0 ? hw.files.length + " attached" : "None"}` + getCharsThatNeedToBeSpaces(hw.files?.length > 0 ? hw.files.length + " attached" : "None") + "|");
+        console.log(`| Substitute  | ${hw.substitute ? "Yes" : "No"}` + getCharsThatNeedToBeSpaces(hw.substitute ? "Yes" : "No") + "|");
+        console.log(calculateTopBorderLength("| Subject     | ", 51));
+    });
+}
+
+function printTimeTableList(timetable) {
+    if (!Array.isArray(timetable) || timetable.length === 0) {
+    console.log("No changes in todays schedul found.");
+    return;
+    }
+
+    timetable.forEach((tt, index) => {
+        const calculateTopBorderLength = (begin, fixed) => {
+            const beginLength = begin.length;
+            const fixedLength = fixed;
+            const borderSymbol = "–"
+
+            return borderSymbol.repeat(beginLength + fixedLength);
+        }
+
+        if (index === 0) {
+            console.log(calculateTopBorderLength("| Missing Teacher  | ", 51));
+        }
+
+        const date = new Date(tt.data.date);
+        const isToday = date.toDateString() === new Date().toDateString();
+        const isTomorrow = date.toDateString() === new Date(Date.now() + 24 * 60 * 60 * 1000).toDateString();
+
+        if (isToday) {
+            dayString = "Today"
+        } else if (isTomorrow) {
+            dayString = "Tomorrow"
+        } else {
+            dayString = "Sometime in the future"
+        }
+        
+        const nodd = tt.data.room === "NO33" || tt.data.room === "Entfall" || tt.data.room === "Ersatz";
+        
+        const entfallText = nodd ? "No Lesson" : tt.data.room;
+        
+        console.log(`| Entry #${index + 1}`);
+        console.log(`| Day              | ${dayString}` + getCharsThatNeedToBeSpaces(dayString) + "|");
+        console.log(`| Hour             | ${tt.data.hour || "Unknown"}` + getCharsThatNeedToBeSpaces(tt.data.hour || "Unknown") + "|");
+        console.log(`| Room             | ${entfallText}` + getCharsThatNeedToBeSpaces(entfallText) + "|");
+        console.log(`| Missing Teacher  | ${tt.data.abs_teacher || "-"}` + getCharsThatNeedToBeSpaces(tt.data.abs_teacher || "-") + "|");
+        console.log(`| Subject          | ${tt.data.uf || "-"}` + getCharsThatNeedToBeSpaces(tt.data.uf || "-") + "|");
+
+        if (!nodd) {
+            console.log(`| Substitute       | ${tt.data.vertr_teacher || "No teacher"}` + getCharsThatNeedToBeSpaces(tt.data.vertr_teacher || "No teacher") + "|");
+        }
+
+        console.log(calculateTopBorderLength("| Missing Teacher  | ", 51));
+    });
+}
+
+
 const ensureConfigExists = () => {
     if (!fs.existsSync(CONFIG_PATH)) {
         fs.mkdirSync(path.dirname(CONFIG_PATH), { recursive: true });
@@ -35,7 +125,7 @@ program.command("homework")
 
         try {
             const homework = await getHausaufgabenAPI(config.username, config.password);
-            console.log(homework);
+            printHomeworkList(homework);
         } catch (error) {
             console.error("Error fetching homework:", error.message);
         }
@@ -55,7 +145,7 @@ program.command("timetable")
 
         try {
             const timetable = await getTimeTableAPI(config.username, config.password);
-            console.log(timetable);
+            printTimeTableList(); 
         } catch (error) {
             console.error("Error fetching timetable:", error.message);
         }
@@ -91,4 +181,5 @@ program.command("config")
         console.log("Configuration saved successfully.");
     })
 
+//jetz nur noch das json stringyfy dingsda mit dem function call printHomeworkList(homework); ersetzen
 program.parse();

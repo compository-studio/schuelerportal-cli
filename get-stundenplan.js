@@ -4,12 +4,12 @@ const {
 	getXsrfToken,
 } = require("./schule-api-session-module");
 
-async function getHausaufgabenAPI(username, password) {
+async function getTimeTableAPI(username, password) {
 	await ensureLoggedIn(username, password);
 	const xsrfToken = getXsrfToken();
 
 	const apiResponse = await fetchWithCookies(
-		"https://api.schueler.schule-infoportal.de/hugyvat/api/hausaufgaben",
+		"https://api.schueler.schule-infoportal.de/hugyvat/api/vertretungsplan",
 		{
 			method: "GET",
 			headers: {
@@ -25,7 +25,7 @@ async function getHausaufgabenAPI(username, password) {
 }
 
 module.exports = {
-	getHausaufgabenAPI(username, password) {
-		return getHausaufgabenAPI(username, password);
-	}
+	getTimeTableAPI(username, password) {
+        return getTimeTableAPI(username, password);
+    }
 };

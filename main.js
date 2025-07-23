@@ -35,7 +35,7 @@ function printHomeworkList(homework) {
         }
 
         if (index === 0) {
-            console.log("\n" + calculateTopBorderLength("| Subject     | ", 51));
+            console.log("\n  " + calculateTopBorderLength("| Subject     | ", 51));
         }
 
         console.log(`  | Homework #${index + 1} | ` + getCharsThatNeedToBeSpaces("") + "|");
@@ -47,7 +47,7 @@ function printHomeworkList(homework) {
         console.log(`  | Completed   | ${hw.completed ? "Yes" : "No"}` + getCharsThatNeedToBeSpaces(hw.completed ? "Yes" : "No") + "|");
         console.log(`  | Files       | ${hw.files?.length > 0 ? hw.files.length + " attached" : "None"}` + getCharsThatNeedToBeSpaces(hw.files?.length > 0 ? hw.files.length + " attached" : "None") + "|");
         console.log(`  | Substitute  | ${hw.substitute ? "Yes" : "No"}` + getCharsThatNeedToBeSpaces(hw.substitute ? "Yes" : "No") + "|");
-        console.log(calculateTopBorderLength("| Subject     | ", 51));
+        console.log("  " + calculateTopBorderLength("| Subject     | ", 51) + "\n");
     });
 }
 
@@ -77,7 +77,7 @@ function printTimeTableList(timetable) {
 
     timetable.data.forEach((entry, entryIndex) => {
         if (entryIndex === 0) {
-            console.log("\n" + calculateTopBorderLength("| Missing Teacher  | ", 46));
+            console.log("\n  " + calculateTopBorderLength("| Missing Teacher  | ", 46));
         }
 
         const date = new Date(entry.date);
@@ -107,7 +107,7 @@ function printTimeTableList(timetable) {
             console.log(`| Substitute       | ${entry.vertr_teacher || "No teacher"}` + getCharsThatNeedToBeSpaces(entry.vertr_teacher || "No teacher") + "|");
         }
 
-        console.log(calculateTopBorderLength("| Missing Teacher  | ", 46));
+        console.log("  " + calculateTopBorderLength("| Missing Teacher  | ", 46) + "\n");
     });
 }
 

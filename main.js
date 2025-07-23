@@ -97,7 +97,7 @@ function printTimeTableList(timetable) {
         const nodd = entry.room === "NO33" || entry.room === "Entfall" || entry.room === "Ersatz";
         const entfallText = nodd ? "No Lesson" : entry.room;
 
-        console.log(`| Entry #${entryIndex + 1}         |` + getCharsThatNeedToBeSpaces("") + "|");
+        console.log(`| Entry #${entryIndex + 1}         | ` + getCharsThatNeedToBeSpaces("") + "|");
         console.log(`| Day              | ${dayString}` + getCharsThatNeedToBeSpaces(dayString) + "|");
         console.log(`| Hour             | ${entry.hour || "Unknown"}` + getCharsThatNeedToBeSpaces(entry.hour || "Unknown") + "|");
         console.log(`| Room             | ${entfallText}` + getCharsThatNeedToBeSpaces(entfallText) + "|");

@@ -39,7 +39,7 @@ function printHomeworkList(homework) {
         }
 
         console.log(`  | Homework #${index + 1}   ` + getCharsThatNeedToBeSpaces("") + "|");
-        console.log("  " + calculateTopBorderLength("| Missing Teacher  | "))
+        console.log("  " + calculateTopBorderLength("| Subject     | ", 51));
         console.log(`  | Subject     | ${hw.subject?.long || "Unknown"}` + getCharsThatNeedToBeSpaces(hw.subject?.long || "Unknown") + "|");
         console.log(`  | Teacher     | ${hw.teacher || "Unknown"}` + getCharsThatNeedToBeSpaces(hw.teacher || "Unknown") + "|");
         console.log(`  | Assigned    | ${hw.date || "No date"}` + getCharsThatNeedToBeSpaces(hw.date || "No date") + "|");
@@ -49,7 +49,8 @@ function printHomeworkList(homework) {
         console.log(`  | Files       | ${hw.files?.length > 0 ? hw.files.length + " attached" : "None"}` + getCharsThatNeedToBeSpaces(hw.files?.length > 0 ? hw.files.length + " attached" : "None") + "|");
         console.log(`  | Substitute  | ${hw.substitute ? "Yes" : "No"}` + getCharsThatNeedToBeSpaces(hw.substitute ? "Yes" : "No") + "|");
         console.log("  " + calculateTopBorderLength("| Subject     | ", 51) + "\n");
-        if (entryIndex < timetable.data.length - 1) {
+
+        if (index < homework.length - 1) {
             console.log("\n");
         }
     });
@@ -113,6 +114,7 @@ function printTimeTableList(timetable) {
         }
 
         console.log("  " + calculateTopBorderLength("| Missing Teacher  | ", 46));
+        
         if (entryIndex < timetable.data.length - 1) {
             console.log("\n");
         }

@@ -13,7 +13,7 @@ async function fetchWithCookies(...args) {
 	return fetchCookie(realFetch, jar)(...args);
 }
 
-async function ensureLoggedIn() {
+async function ensureLoggedIn(username, password) {
 	if (isLoggedIn && xsrfToken) return xsrfToken;
 	// Set school cookie
 	await jar.setCookie(
@@ -74,8 +74,8 @@ async function ensureLoggedIn() {
 				Referer: "https://schueler.schule-infoportal.de/",
 			},
 			body: JSON.stringify({
-				email: "",
-				password: "",
+				email: username,
+				password: password,
 			}),
 		}
 	);

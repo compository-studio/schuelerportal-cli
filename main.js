@@ -49,10 +49,6 @@ function printHomeworkList(homework) {
         console.log(`  | Files       | ${hw.files?.length > 0 ? hw.files.length + " attached" : "None"}` + getCharsThatNeedToBeSpaces(hw.files?.length > 0 ? hw.files.length + " attached" : "None") + "|");
         console.log(`  | Substitute  | ${hw.substitute ? "Yes" : "No"}` + getCharsThatNeedToBeSpaces(hw.substitute ? "Yes" : "No") + "|");
         console.log("  " + calculateTopBorderLength("| Subject     | ", 51) + "\n");
-
-        if (index < homework.length - 1) {
-            console.log("\n");
-        }
     });
 }
 
@@ -114,10 +110,6 @@ function printTimeTableList(timetable) {
         }
 
         console.log("  " + calculateTopBorderLength("| Missing Teacher  | ", 46));
-        
-        if (entryIndex < timetable.data.length - 1) {
-            console.log("\n");
-        }
     });
 }
 

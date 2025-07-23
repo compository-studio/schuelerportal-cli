@@ -36,7 +36,7 @@ function printHomeworkList(homework) {
             console.log(calculateTopBorderLength("| Subject     | ", 51));
         }
 
-        console.log(`| Homework #${index + 1}`);
+        console.log(`| Homework #${index + 1}  | ` + getCharsThatNeedToBeSpaces("") + "|");
         console.log(`| Subject     | ${hw.subject?.long || "Unknown"}` + getCharsThatNeedToBeSpaces(hw.subject?.long || "Unknown") + "|");
         console.log(`| Teacher     | ${hw.teacher || "Unknown"}` + getCharsThatNeedToBeSpaces(hw.teacher || "Unknown") + "|");
         console.log(`| Assigned    | ${hw.date || "No date"}` + getCharsThatNeedToBeSpaces(hw.date || "No date") + "|");
@@ -50,11 +50,15 @@ function printHomeworkList(homework) {
 }
 
 function printTimeTableList(timetable) {
-    if (!Array.isArray(timetable) || timetable.length === 0) {
-    console.log("No changes in todays schedul found.");
-    return;
+    if (!Array.isArray(timetable)) {
+        try {
+            timetable = JSON.parse(timetable);
+        } catch (error) {
+            console.error("Error parsing timetable data:", error.message);
+            return;
+        }
     }
-
+    
     timetable.forEach((tt, index) => {
         const calculateTopBorderLength = (begin, fixed) => {
             const beginLength = begin.length;
@@ -84,7 +88,7 @@ function printTimeTableList(timetable) {
         
         const entfallText = nodd ? "No Lesson" : tt.data.room;
         
-        console.log(`| Entry #${index + 1}`);
+        console.log(`| Entry #${index + 1}` + getCharsThatNeedToBeSpaces("") + "|");
         console.log(`| Day              | ${dayString}` + getCharsThatNeedToBeSpaces(dayString) + "|");
         console.log(`| Hour             | ${tt.data.hour || "Unknown"}` + getCharsThatNeedToBeSpaces(tt.data.hour || "Unknown") + "|");
         console.log(`| Room             | ${entfallText}` + getCharsThatNeedToBeSpaces(entfallText) + "|");

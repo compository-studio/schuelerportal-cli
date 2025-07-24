@@ -150,7 +150,7 @@ function printTimeTableList(timetable) {
 
 		const nodd =
 			entry.room === "NO33" ||
-			entry.room === "Entfall" ||
+			entry.room === "entfällt" ||
 			entry.room === "Ersatz";
 		const entfallText = nodd ? "No Lesson" : entry.room;
 

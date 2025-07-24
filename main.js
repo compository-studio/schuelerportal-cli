@@ -148,6 +148,9 @@ function printTimeTableList(timetable) {
 			dayString = "Sometime in the future";
 		}
 
+		// Log the whole json data for debugging
+		console.log(entry);
+
 		const nodd =
 			entry.room === "NO33" ||
 			entry.text === "entfällt" ||

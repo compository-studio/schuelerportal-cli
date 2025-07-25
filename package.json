@@ -1,38 +1,38 @@
 {
-  "name": "schuelerportal-cli",
-  "version": "1.0.0",
-  "description": "Schülerportal CLI Tool",
-  "homepage": "https://github.com/compository-studio/schuelerportal-cli#readme",
-  "bugs": {
-    "url": "https://github.com/compository-studio/schuelerportal-cli/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/compository-studio/schuelerportal-cli.git"
-  },
-  "license": "ISC",
-  "author": "Niclas Ponikwar & Michael Sellmeier",
-  "type": "commonjs",
-  "main": "main.js",
-  "bin": {
-    "portal": "./main.js",
-    "schuelerportal-cli": "./main.js"
-  },
-  "preferGlobal": true,
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "commander": "^11.0.0",
-    "tough-cookie": "^4.1.3",
-    "fetch-cookie": "^2.1.0",
-    "node-fetch": "^2.7.0"
-  },
-  "keywords": [
-    "cli",
-    "schuelerportal",
-    "homework",
-    "timetable",
-    "education"
-  ]
+	"name": "schuelerportal-cli",
+	"version": "1.0.0",
+	"description": "Schülerportal CLI Tool",
+	"homepage": "https://github.com/compository-studio/schuelerportal-cli#readme",
+	"bugs": {
+		"url": "https://github.com/compository-studio/schuelerportal-cli/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/compository-studio/schuelerportal-cli.git"
+	},
+	"license": "ISC",
+	"author": "Niclas Ponikwar & Michael Sellmeier",
+	"type": "commonjs",
+	"main": "main.js",
+	"bin": {
+		"portal": "./main.js",
+		"schuelerportal-cli": "./main.js"
+	},
+	"preferGlobal": true,
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"dependencies": {
+		"commander": "^11.0.0",
+		"tough-cookie": "^4.1.3",
+		"fetch-cookie": "^2.1.0",
+		"node-fetch": "^2.7.0"
+	},
+	"keywords": [
+		"cli",
+		"schuelerportal",
+		"homework",
+		"timetable",
+		"education"
+	]
 }
